@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
+
+before_install:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd) 
+
+install:
+  - pip install -r requirements/base.txt
+  - pip install -r requirements/tests.txt
+
+script:
+  - pytest --cov=qstrader/
+  - flake8 --ignore E501,F501,W504 tests qstrader
+
+after_success:
+  - coveralls
